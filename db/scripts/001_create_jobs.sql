@@ -1,0 +1,2 @@
+UPDATE Jobs SET IsRemote = 1 WHERE Id = 1;
+SELECT * FROM Jobs WHERE Id = 1;
