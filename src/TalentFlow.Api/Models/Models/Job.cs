@@ -11,4 +11,5 @@ public class Job
     public int? SalaryMax { get; set; }
     public string? Url { get; set; }
     public DateTime PostedAt { get; set; }
+    public string? Description { get; set; }
 }
