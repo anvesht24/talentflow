@@ -11,4 +11,5 @@ public class TalentFlowDbContext : DbContext
     }
 
     public DbSet<Job> Jobs => Set<Job>();
+    public DbSet<Application> Applications => Set<Application>();
 }

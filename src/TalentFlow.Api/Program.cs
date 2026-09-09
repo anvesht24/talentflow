@@ -40,6 +40,8 @@ app.MapGet("/weatherforecast", () =>
 .WithOpenApi();
 app.MapGet("/api/jobs", async (TalentFlowDbContext db) =>
     await db.Jobs.ToListAsync());
+app.MapGet("/api/applications", async (TalentFlowDbContext db) =>
+    await db.Applications.Include(a => a.Job).ToListAsync());
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
