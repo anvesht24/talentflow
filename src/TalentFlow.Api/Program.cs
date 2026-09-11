@@ -42,6 +42,18 @@ app.MapGet("/api/jobs", async (TalentFlowDbContext db) =>
     await db.Jobs.ToListAsync());
 app.MapGet("/api/applications", async (TalentFlowDbContext db) =>
     await db.Applications.Include(a => a.Job).ToListAsync());
+app.MapPut("/api/applications/{id}/stage", async (int id, string stage, TalentFlowDbContext db) =>
+{
+    var application = await db.Applications.FindAsync(id);
+    if (application is null)
+        return Results.NotFound();
+
+    application.Stage = stage;
+    //await db.SaveChangesAsync();
+
+    return Results.Ok(application);
+});
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
