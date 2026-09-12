@@ -1,0 +1,3 @@
+### Move application to Interviewing
+PUT http://localhost:5027/api/applications/1/stage?stage=Interviewing
+GET http://localhost:5027/api/applications
