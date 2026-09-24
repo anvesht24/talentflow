@@ -1,3 +1,8 @@
-### Move application to Interviewing
-PUT http://localhost:5027/api/applications/1/stage?stage=Interviewing
-GET http://localhost:5027/api/applications
+### Create a new application
+POST http://localhost:5001/api/applications
+Content-Type: application/json
+
+{
+  "jobId": 2,
+  "notes": "Referred by a friend who works there."
+}

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TalentFlow.Api.Data;
+using TalentFlow.Api.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -53,7 +54,23 @@ app.MapPut("/api/applications/{id}/stage", async (int id, string stage, TalentFl
 
     return Results.Ok(application);
 });
+app.MapPost("/api/applications", async (CreateApplicationRequest request, TalentFlowDbContext db) =>
+{
+    var jobExists = await db.Jobs.AnyAsync(j => j.Id == request.JobId);
+    if (!jobExists)
+        return Results.BadRequest($"No job with Id {request.JobId} exists.");
 
+    var application = new Application
+    {
+        JobId = request.JobId,
+        Notes = request.Notes
+    };
+
+    db.Applications.Add(application);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/api/applications/{application.Id}", application);
+});
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
