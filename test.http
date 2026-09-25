@@ -1,8 +1,2 @@
-### Create a new application
-POST http://localhost:5001/api/applications
-Content-Type: application/json
-
-{
-  "jobId": 2,
-  "notes": "Referred by a friend who works there."
-}
+### Delete an application
+DELETE http://localhost:5001/api/applications/1

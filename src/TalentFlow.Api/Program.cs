@@ -71,6 +71,20 @@ app.MapPost("/api/applications", async (CreateApplicationRequest request, Talent
 
     return Results.Created($"/api/applications/{application.Id}", application);
 });
+
+
+app.MapDelete("/api/applications/{id}", async (int id, TalentFlowDbContext db) =>
+{
+    var application = await db.Applications.FindAsync(id);
+    if (application is null)
+        return Results.NotFound();
+
+    db.Applications.Remove(application);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
